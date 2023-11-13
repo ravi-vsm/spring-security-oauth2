@@ -93,7 +93,8 @@ public class OAuth2ServerConfiguration {
 						.authorities("USER")
 						.scopes("read", "write")
 						.resourceIds(RESOURCE_ID)
-					     .secret(new BCryptPasswordEncoder().encode("123456"));
+						.accessTokenValiditySeconds(30)
+					    .secret(new BCryptPasswordEncoder().encode("123456"));
 		}
 
 		@Bean
@@ -101,6 +102,7 @@ public class OAuth2ServerConfiguration {
 		public DefaultTokenServices tokenServices() {
 			DefaultTokenServices tokenServices = new DefaultTokenServices();
 			tokenServices.setSupportRefreshToken(true);
+			
 			tokenServices.setTokenStore(this.tokenStore);
 			return tokenServices;
 		}
